@@ -14,6 +14,8 @@ public class SmartTv {
   public static final int PORT_NUMBER = 10025;
   public static final String CHANNEL_COUNT_COMMAND = "c";
   public static final String TURN_ON_COMMAND = "1";
+
+  public static final String TURN_OFF_COMMAND = "0";
   public static final String OK_REPONSE = "o";
   boolean isTvOn;
   final int numberOfChannels;
@@ -122,6 +124,8 @@ public class SmartTv {
         response = handleChannelCountCommand();
       } else if (clientRequest.equals(TURN_ON_COMMAND)) {
         response = handleTurnOnCommand();
+      } else if (clientRequest.equals(TURN_OFF_COMMAND)) {
+        response = handleTurnOffCommand();
       }
     }
 
@@ -133,12 +137,17 @@ public class SmartTv {
     return OK_REPONSE;
   }
 
+  private String handleTurnOffCommand(){
+    isTvOn = false;
+    return OK_REPONSE;
+  }
+
   private String handleChannelCountCommand() {
     String response;
     if (isTvOn) {
       response = "c" + numberOfChannels;
     } else {
-      response = "eMust turn the TV on first";
+      response = "Must turn the TV on first";
     }
     return response;
   }

@@ -29,9 +29,12 @@ public class RemoteControl {
           new InputStreamReader(socket.getInputStream()));
 
       sendCommandToServer("c");
+      sendCommandToServer("0");
+      sendCommandToServer("c");
       sendCommandToServer("1");
       sendCommandToServer("c");
-      sendCommandToServer("s13");
+      sendCommandToServer("c");
+
 
     } catch (IOException e) {
       System.err.println("Could not establish connection to the server: " + e.getMessage());
