@@ -33,6 +33,7 @@ public class RemoteControl {
       sendCommandToServer("c");
       sendCommandToServer("1");
       sendCommandToServer("c");
+      sendCommandToServer("2");
       sendCommandToServer("c");
 
 
