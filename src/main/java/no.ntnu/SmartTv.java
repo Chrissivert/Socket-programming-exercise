@@ -144,7 +144,7 @@ public class SmartTv {
     return OK_REPONSE;
   }
 
-  private String isOn() {
+  String isOn() {
     return isTvOn ? "yes" : "no";
   }
 
