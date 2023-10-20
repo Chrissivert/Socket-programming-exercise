@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Scanner;
 
 /**
  * Remote control for a TV - a TCP client.
@@ -15,6 +16,8 @@ public class RemoteControl {
   private Socket socket;
   private BufferedReader socketReader;
   private PrintWriter socketWriter;
+
+  private Scanner scanner;
 
   public static void main(String[] args) {
     RemoteControl remoteControl = new RemoteControl();
@@ -25,17 +28,19 @@ public class RemoteControl {
     try {
       socket = new Socket("localhost", PORT_NUMBER);
       socketWriter = new PrintWriter(socket.getOutputStream(), true);
-      socketReader = new BufferedReader(
-          new InputStreamReader(socket.getInputStream()));
+      socketReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+      scanner = new Scanner(System.in);
 
-      sendCommandToServer("c");
-      sendCommandToServer("0");
-      sendCommandToServer("c");
-      sendCommandToServer("1");
-      sendCommandToServer("c");
-      sendCommandToServer("2");
-      sendCommandToServer("c");
 
+      // Start a separate thread for receiving server responses.
+      Thread responseThread = new Thread(this::receiveServerResponses);
+      responseThread.start();
+
+      // Read user input and send it to the server.
+      while (true) {
+        String userInput = scanner.nextLine();
+        sendCommandToServer(userInput);
+      }
 
     } catch (IOException e) {
       System.err.println("Could not establish connection to the server: " + e.getMessage());
@@ -44,7 +49,26 @@ public class RemoteControl {
 
   private void sendCommandToServer(String command) throws IOException {
     socketWriter.println(command);
-    String serverResponse = socketReader.readLine();
-    System.out.println("Server's response: " + serverResponse);
+  }
+
+  private void sendRandomMessages() throws IOException{
+    sendCommandToServer("c");
+    sendCommandToServer("0");
+    sendCommandToServer("c");
+    sendCommandToServer("1");
+    sendCommandToServer("c");
+    sendCommandToServer("2");
+    sendCommandToServer("c");
+  }
+
+  private void receiveServerResponses() {
+    try {
+      while (true) {
+        String serverResponse = socketReader.readLine();
+        System.out.println("Server's response: " + serverResponse);
+      }
+    } catch (IOException e) {
+      System.err.println("Error while receiving server responses: " + e.getMessage());
+    }
   }
 }
