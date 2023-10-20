@@ -1,5 +1,7 @@
 package no.ntnu;
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,6 +22,8 @@ public class SmartTv {
   public static final String OK_REPONSE = "ok";
 
   public static final String CURRENT_CHANNEL = "k";
+
+  public static final String SELECT_CHANNEL ="q";
   boolean isTvOn;
   final int numberOfChannels;
   int currentChannel;
@@ -131,10 +135,30 @@ public class SmartTv {
         response = handleTurnOffCommand();
       } else if (clientRequest.equals(IS_ON)) {
         response = isOn();
-      } else if (clientRequest.equals(CURRENT_CHANNEL))
+      } else if (clientRequest.equals(CURRENT_CHANNEL)) {
         response = getCurrentChannel();
+    } else if (clientRequest.equals(SELECT_CHANNEL))
+      response = selectChannel();
     }
-    return response;
+      return response;
+  }
+
+  private String selectChannel() {
+    try {
+      sendResponseToClient("Enter the channel number: ");
+      String userInput = readClientRequest();
+      int channelNumber = Integer.parseInt(userInput);
+
+      if (channelNumber >= 1 && channelNumber <= numberOfChannels) {
+
+        currentChannel = channelNumber;
+        return "Channel changed to " + currentChannel;
+      } else {
+        return "Invalid channel number. Please enter a number between 1 and " + numberOfChannels;
+      }
+    } catch (NumberFormatException e) {
+      return "Invalid input. Please enter a valid number.";
+    }
   }
 
   private String handleTurnOnCommand() {
