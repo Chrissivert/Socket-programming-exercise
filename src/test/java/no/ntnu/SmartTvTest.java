@@ -17,8 +17,37 @@ public class SmartTvTest {
     }
 
     @Test
-    public void testTvTurnedOffByDefault(){
-            SmartTv tv = new SmartTv(10);
-            assertEquals("no", tv.isOn());
+    public void testTVTurnedOffByDefault() {
+        SmartTv tv = new SmartTv(10);
+        assertEquals("no", tv.isOn());
+    }
+
+    @Test
+    public void cantGetChannelListWhenTVIsOff() {
+        SmartTv tv = new SmartTv(10);
+        assertEquals("Must turn the TV on first", tv.getAmountOfChannels());
+    }
+
+    @Test
+    public void canTurnOnTV() {
+        SmartTv tv = new SmartTv(10);
+        assertFalse(tv.isTvOn);
+        tv.handleTurnOnCommand();
+        assertTrue(tv.isTvOn);
+    }
+    @Test
+    public void canChangeChannel() {
+        SmartTv tv = new SmartTv(10);
+        tv.handleTurnOnCommand();
+        int response = tv.setChannel("14");
+        assertEquals(response, tv.currentChannel);
+    }
+
+//    @Test
+//    public void cantChangeToNegativeChannel(){
+//        SmartTv tv = new SmartTv(10);
+//        tv.handleTurnOnCommand();
+//        int response = tv.setChannel("-14");
+//        assertEquals(response, tv.);
     }
 }

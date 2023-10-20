@@ -1,7 +1,5 @@
 package no.ntnu;
 
-import org.w3c.dom.ls.LSOutput;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -128,7 +126,7 @@ public class SmartTv {
 
     if (clientRequest != null) {
       if (clientRequest.equals(CHANNEL_COUNT_COMMAND)) {
-        response = handleChannelCountCommand();
+        response = getAmountOfChannels();
       } else if (clientRequest.equals(TURN_ON_COMMAND)) {
         response = handleTurnOnCommand();
       } else if (clientRequest.equals(TURN_OFF_COMMAND)) {
@@ -138,7 +136,7 @@ public class SmartTv {
       } else if (clientRequest.equals(CURRENT_CHANNEL)) {
         response = getCurrentChannel();
       } else if (clientRequest.equals(SELECT_CHANNEL)){
-      response = selectChannel();
+      response = handleChangeChannel();
       } else if (clientRequest.equals(ONE_CHANNEL_UP)){
       response = increaseChannelByOne();
       } else if (clientRequest.equals(ONE_CHANNEL_DOWN))
@@ -155,15 +153,14 @@ public class SmartTv {
     return Integer.toString(currentChannel--);
   }
 
-  private String selectChannel() {
+  public String handleChangeChannel() {
     try {
       sendResponseToClient("Enter the channel number: ");
       String userInput = readClientRequest();
-      int channelNumber = Integer.parseInt(userInput);
+      int channelNumber = setChannel(userInput);
 
       if (channelNumber >= 1 && channelNumber <= numberOfChannels) {
 
-        currentChannel = channelNumber;
         return "Channel changed to " + currentChannel;
       } else {
         return "Invalid channel number. Please enter a number between 1 and " + numberOfChannels;
@@ -173,7 +170,12 @@ public class SmartTv {
     }
   }
 
-  private String handleTurnOnCommand() {
+  public int setChannel(String userInput){
+    currentChannel = Integer.parseInt(userInput);
+    return Integer.parseInt(userInput);
+  }
+
+  public String handleTurnOnCommand() {
     isTvOn = true;
     return OK_REPONSE;
   }
@@ -192,7 +194,7 @@ public class SmartTv {
   }
 
 
-  private String handleChannelCountCommand() {
+  public String getAmountOfChannels() {
     String response;
     if (isTvOn) {
       response = "c" + numberOfChannels;
