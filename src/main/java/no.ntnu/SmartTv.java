@@ -16,14 +16,14 @@ public class SmartTv {
   public static final int PORT_NUMBER = 10025;
   public static final String CHANNEL_COUNT_COMMAND = "c";
   public static final String TURN_ON_COMMAND = "1";
-
   public static final String IS_ON = "2";
   public static final String TURN_OFF_COMMAND = "0";
   public static final String OK_REPONSE = "ok";
-
   public static final String CURRENT_CHANNEL = "k";
-
   public static final String SELECT_CHANNEL ="q";
+  public static final String ONE_CHANNEL_UP = "Increase channel";
+  public static final String ONE_CHANNEL_DOWN = "Decrease channel";
+
   boolean isTvOn;
   final int numberOfChannels;
   int currentChannel;
@@ -137,10 +137,22 @@ public class SmartTv {
         response = isOn();
       } else if (clientRequest.equals(CURRENT_CHANNEL)) {
         response = getCurrentChannel();
-    } else if (clientRequest.equals(SELECT_CHANNEL))
+      } else if (clientRequest.equals(SELECT_CHANNEL)){
       response = selectChannel();
+      } else if (clientRequest.equals(ONE_CHANNEL_UP)){
+      response = increaseChannelByOne();
+      } else if (clientRequest.equals(ONE_CHANNEL_DOWN))
+        response = decreaseChannelByOne();
     }
       return response;
+  }
+
+  private String increaseChannelByOne() {
+   return Integer.toString(currentChannel++);
+  }
+
+  private String decreaseChannelByOne() {
+    return Integer.toString(currentChannel--);
   }
 
   private String selectChannel() {
