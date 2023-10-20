@@ -16,7 +16,6 @@ public class RemoteControl {
   private Socket socket;
   private BufferedReader socketReader;
   private PrintWriter socketWriter;
-
   private Scanner scanner;
 
   public static void main(String[] args) {
@@ -26,11 +25,11 @@ public class RemoteControl {
 
   private void run() {
     try {
+      printFunctionInfoToUser();
       socket = new Socket("localhost", PORT_NUMBER);
       socketWriter = new PrintWriter(socket.getOutputStream(), true);
       socketReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
       scanner = new Scanner(System.in);
-
 
       // Start a separate thread for receiving server responses.
       Thread responseThread = new Thread(this::receiveServerResponses);
@@ -56,9 +55,6 @@ public class RemoteControl {
     sendCommandToServer("0");
     sendCommandToServer("c");
     sendCommandToServer("1");
-    sendCommandToServer("c");
-    sendCommandToServer("2");
-    sendCommandToServer("c");
   }
 
   private void receiveServerResponses() {
@@ -70,5 +66,10 @@ public class RemoteControl {
     } catch (IOException e) {
       System.err.println("Error while receiving server responses: " + e.getMessage());
     }
+  }
+
+  private void printFunctionInfoToUser(){
+    System.out.println("0 to turn off, 1 to turn on \n c to get amount of channels \n 2 to check if " +
+            "tv is turned on");
   }
 }

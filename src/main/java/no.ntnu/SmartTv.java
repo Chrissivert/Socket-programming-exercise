@@ -17,7 +17,9 @@ public class SmartTv {
 
   public static final String IS_ON = "2";
   public static final String TURN_OFF_COMMAND = "0";
-  public static final String OK_REPONSE = "o";
+  public static final String OK_REPONSE = "ok";
+
+  public static final String CURRENT_CHANNEL = "k";
   boolean isTvOn;
   final int numberOfChannels;
   int currentChannel;
@@ -129,7 +131,8 @@ public class SmartTv {
         response = handleTurnOffCommand();
       } else if (clientRequest.equals(IS_ON)) {
         response = isOn();
-      }
+      } else if (clientRequest.equals(CURRENT_CHANNEL))
+        response = getCurrentChannel();
     }
     return response;
   }
@@ -142,6 +145,10 @@ public class SmartTv {
   private String handleTurnOffCommand(){
     isTvOn = false;
     return OK_REPONSE;
+  }
+
+  private String getCurrentChannel(){
+      return Integer.toString(currentChannel);
   }
 
   public String isOn() {
