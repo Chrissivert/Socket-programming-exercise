@@ -9,15 +9,24 @@ The following requests could be sent from client to server:
 
 * "1" turn on the TV
 * "0" turn off the TV
+* 2 to check if the TV is on
 * "c" get the number of channels
 * "s##" set current channel, where ### is the desired channel number, as a string, can be one
   or several bytes, up to the newline ("s1", "s25", ...)
+* "k" get current channel
+* "q" select a specific next channel
+* "Increase channel" to increase channel by 1
+* "Decrease channel" to decrease channel by 1
+
+
+public static final String OK_REPONSE = "ok";
+
 
 Server can respond with:
 
-* "o"  - performed the necessary operation
+* "ok"  - performed the necessary operation
 * "c##"  - report the number of channels, where ### is the number of channels, as a string, 
   can be several bytes, until the newline
-* "eM"  - if the operation failed, where M is an error message - string until the newline. For
-  example, if the error message is "Invalid channel number", the response will be
-  "eInvalid channel number"
+* "Enter the channel number" - request to enter the channel number after writing q
+  to change channel
+* "Channel changed to" - after writing the specified channel number

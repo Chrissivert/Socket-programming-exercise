@@ -70,6 +70,6 @@ public class RemoteControl {
 
   private void printFunctionInfoToUser(){
     System.out.println("0 to turn off, 1 to turn on \n c to get amount of channels \n 2 to check if " +
-            "tv is turned on");
+            "tv is turned on \n");
   }
 }

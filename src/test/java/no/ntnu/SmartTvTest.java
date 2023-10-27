@@ -50,4 +50,4 @@ public class SmartTvTest {
 //        int response = tv.setChannel("-14");
 //        assertEquals(response, tv.);
     }
-}
+//}
