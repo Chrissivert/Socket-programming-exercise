@@ -18,29 +18,44 @@ public class SmartTvTest {
 
     @Test
     public void testTVTurnedOffByDefault() {
-        SmartTv tv = new SmartTv(10);
-        assertEquals("no", tv.isOn());
+        TvLogic tvLogic = new TvLogic(10);
+        TvServer tvServer = new TvServer(tvLogic);
+        assertEquals(false,  tvServer.getLogic().isTvOn());
     }
 
     @Test
     public void cantGetChannelListWhenTVIsOff() {
-        SmartTv tv = new SmartTv(10);
-        assertEquals("Must turn the TV on first", tv.getAmountOfChannels());
+        TvLogic tvLogic = new TvLogic(10);
+        TvServer tvServer = new TvServer(tvLogic);
+        assertEquals("Must turn the TV on first", tvServer.handleClientRequest("c"));
     }
 
     @Test
     public void canTurnOnTV() {
-        SmartTv tv = new SmartTv(10);
-        assertFalse(tv.isTvOn);
-        tv.handleTurnOnCommand();
-        assertTrue(tv.isTvOn);
+        TvLogic tvLogic = new TvLogic(10);
+        TvServer tvServer = new TvServer(tvLogic);
+        assertFalse(tvServer.getLogic().isTvOn());
+        tvServer.getLogic().turnOn();
+        assertTrue(tvServer.getLogic().isTvOn());
     }
     @Test
     public void canChangeChannel() {
-        SmartTv tv = new SmartTv(10);
-        tv.handleTurnOnCommand();
-        int response = tv.setChannel("14");
-        assertEquals(response, tv.currentChannel);
+        TvLogic tvLogic = new TvLogic(10);
+        TvServer tvServer = new TvServer(tvLogic);
+        tvServer.getLogic().turnOn();
+        int initialChannel = tvServer.getLogic().getCurrentChannel();
+        String response = tvServer.handleClientRequest("Increase channel");
+        assertEquals(Integer.parseInt(response), (initialChannel+1));
+    }
+
+    @Test
+    public void cantChangeToNegativeChannel() {
+        TvLogic tvLogic = new TvLogic(10);
+        TvServer tvServer = new TvServer(tvLogic);
+        tvServer.getLogic().turnOn();
+        int initialChannel = tvServer.getLogic().getCurrentChannel();
+        String response = tvServer.handleClientRequest("Decrease channel");
+        assertEquals(Integer.parseInt(response), (initialChannel));
     }
 
 //    @Test
@@ -49,5 +64,16 @@ public class SmartTvTest {
 //        tv.handleTurnOnCommand();
 //        int response = tv.setChannel("-14");
 //        assertEquals(response, tv.);
+
+    @Test
+    public void remoteToTv() {
+        SmartTv smartTv = new SmartTv(12);
+        RemoteControl remoteControl = new RemoteControl();
+
+
+    }
+
+
     }
 //}
+

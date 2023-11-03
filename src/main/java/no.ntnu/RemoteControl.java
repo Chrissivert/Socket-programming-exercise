@@ -1,6 +1,6 @@
 package no.ntnu;
 
-import static no.ntnu.SmartTv.PORT_NUMBER;
+import static no.ntnu.TvServer.PORT_NUMBER;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,9 +36,16 @@ public class RemoteControl {
       responseThread.start();
 
       // Read user input and send it to the server.
-      while (true) {
+
+      boolean isRunning = true;
+      while (isRunning) {
         String userInput = scanner.nextLine();
-        sendCommandToServer(userInput);
+        if (userInput.toLowerCase() == "exit") {
+          isRunning = false;
+          System.out.println("Remote is disconnected.");
+        } else {
+          sendCommandToServer(userInput);
+        }
       }
 
     } catch (IOException e) {
@@ -70,7 +77,7 @@ public class RemoteControl {
 
   private void printFunctionInfoToUser(){
     System.out.println("0 to turn off tv \n 1 to turn on \n 2 to check if tv is turned on \n " +
-            "c to get amount of channels \n q to set channel \n  k to get current channel \n  a to increase channel by 1 \n  " +
+            "c to get amount of channels \n s to set channel \n  k to get current channel \n  a to increase channel by 1 \n  " +
             "b to decrease channel by 1");
 
   }
