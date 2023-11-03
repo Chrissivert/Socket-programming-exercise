@@ -19,8 +19,8 @@ public class SmartTv {
   public static final String OK_REPONSE = "ok";
   public static final String CURRENT_CHANNEL = "k";
   public static final String SELECT_CHANNEL ="q";
-  public static final String ONE_CHANNEL_UP = "Increase channel";
-  public static final String ONE_CHANNEL_DOWN = "Decrease channel";
+  public static final String ONE_CHANNEL_UP = "a";
+  public static final String ONE_CHANNEL_DOWN = "b";
 
   boolean isTvOn;
   final int numberOfChannels;

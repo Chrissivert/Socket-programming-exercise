@@ -11,12 +11,10 @@ The following requests could be sent from client to server:
 * "0" turn off the TV
 * 2 to check if the TV is on
 * "c" get the number of channels
-* "s##" set current channel, where ### is the desired channel number, as a string, can be one
-  or several bytes, up to the newline ("s1", "s25", ...)
 * "k" get current channel
 * "q" select a specific next channel
-* "Increase channel" to increase channel by 1
-* "Decrease channel" to decrease channel by 1
+* "a" to increase channel by 1
+* "b" to decrease channel by 1
 
 
 public static final String OK_REPONSE = "ok";

@@ -69,7 +69,9 @@ public class RemoteControl {
   }
 
   private void printFunctionInfoToUser(){
-    System.out.println("0 to turn off, 1 to turn on \n c to get amount of channels \n 2 to check if " +
-            "tv is turned on \n");
+    System.out.println("0 to turn off tv \n 1 to turn on \n 2 to check if tv is turned on \n " +
+            "c to get amount of channels \n q to set channel \n  k to get current channel \n  a to increase channel by 1 \n  " +
+            "b to decrease channel by 1");
+
   }
 }
