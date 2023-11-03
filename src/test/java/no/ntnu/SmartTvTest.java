@@ -64,6 +64,16 @@ public class SmartTvTest {
 //        tv.handleTurnOnCommand();
 //        int response = tv.setChannel("-14");
 //        assertEquals(response, tv.);
+
+    @Test
+    public void remoteToTv() {
+        SmartTv smartTv = new SmartTv(12);
+        RemoteControl remoteControl = new RemoteControl();
+
+
+    }
+
+
     }
 //}
 

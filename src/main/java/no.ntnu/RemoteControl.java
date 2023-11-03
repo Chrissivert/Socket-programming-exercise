@@ -36,9 +36,16 @@ public class RemoteControl {
       responseThread.start();
 
       // Read user input and send it to the server.
-      while (true) {
+
+      boolean isRunning = true;
+      while (isRunning) {
         String userInput = scanner.nextLine();
-        sendCommandToServer(userInput);
+        if (userInput.toLowerCase() == "exit") {
+          isRunning = false;
+          System.out.println("Remote is disconnected.");
+        } else {
+          sendCommandToServer(userInput);
+        }
       }
 
     } catch (IOException e) {

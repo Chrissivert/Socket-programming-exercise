@@ -130,7 +130,13 @@ public class TvServer {
                 break;
             }
             case(SET_CHANNEL): {
-                System.out.println("1");
+                if (this.logic.isTvOn()){
+                    this.setChannel(clientRequest);
+                    response = "Channel is set to " + this.logic.getCurrentChannel();
+                } else {
+                    response = "Must turn the TV on first";
+                }
+
                 break;
             }
             case(ONE_CHANNEL_UP): {
