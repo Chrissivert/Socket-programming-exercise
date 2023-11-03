@@ -126,7 +126,7 @@ public class TvServer {
             }
             case(SET_CHANNEL): {
                 if (this.logic.isTvOn()){
-                    this.setChannel(clientRequest);
+                    this.logic.selectChannel(clientRequest);
                     response = "Channel is set to " + this.logic.getCurrentChannel();
                 } else {
                     response = "Must turn the TV on first";
@@ -169,10 +169,12 @@ public class TvServer {
         }
     }
 
-    public int setChannel(String userInput){
-        this.logic.setChannel(Integer.parseInt(userInput));
-        return Integer.parseInt(userInput);
-    }
+//    public int setChannel(String userInput){
+//        this.logic.setChannel(Integer.parseInt(userInput));
+//        return Integer.parseInt(userInput);
+//    }
+
+
 
     /**
      * Send a response from the server to the client, over the TCP socket.

@@ -51,4 +51,19 @@ public class TvLogic {
     public boolean isTvOn() {
         return this.isTvOn;
     }
+
+    public String selectChannel(String userInput) {
+        try {
+            int channelNumber = Integer.parseInt(userInput);
+            if (channelNumber >= 1 && channelNumber <= numberOfChannels) {
+
+                currentChannel = channelNumber;
+                return "Channel changed to " + currentChannel;
+            } else {
+                return "Invalid channel number. Please enter a number between 1 and " + numberOfChannels;
+            }
+        } catch (NumberFormatException e) {
+            return "Invalid input. Please enter a valid number.";
+        }
+    }
 }
