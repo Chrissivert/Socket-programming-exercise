@@ -66,8 +66,12 @@ public class RemoteControl {
 
   private void receiveServerResponses() {
     try {
-      while (true) {
+      boolean serverRunning = true;
+      while (serverRunning) {
         String serverResponse = socketReader.readLine();
+        if (serverResponse == null) {
+          serverRunning = false;
+        }
         System.out.println("Server's response: " + serverResponse);
       }
     } catch (IOException e) {

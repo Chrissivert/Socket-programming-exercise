@@ -151,6 +151,9 @@ public class TvServer {
                 response = Integer.toString(this.getLogic().getCurrentChannel());
                 break;
             }
+            default: {
+                response = "Not a valid command. See protocol.md.";
+            }
         }
         return response;
     }
